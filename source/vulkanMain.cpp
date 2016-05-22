@@ -1,7 +1,7 @@
-//---------------------------------------------------------------------------
+ï»¿//---------------------------------------------------------------------------
 //!
 //! @file	vulkanMain.cpp
-//! @brief	Vulkan‚ÌƒƒCƒ“ˆ—
+//! @brief	Vulkanã®ãƒ¡ã‚¤ãƒ³å‡¦ç†
 //! @author	Yuki.Ishigaki
 //!
 //---------------------------------------------------------------------------
@@ -12,7 +12,7 @@
 
 
 //---------------------------------------------------------------------------
-// ƒCƒ[ƒWƒŒƒCƒAƒEƒg‚ğİ’è‚µ‚Ü‚·.
+// ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã‚’è¨­å®šã—ã¾ã™.
 //---------------------------------------------------------------------------
 void SetImageLayout
 (
@@ -72,7 +72,7 @@ void SetImageLayout
 
 
 //---------------------------------------------------------------------------
-//! ‰Šú‰»
+//! åˆæœŸåŒ–
 //---------------------------------------------------------------------------
 bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 {
@@ -86,29 +86,29 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 	auto& vkInstance = IDeviceManager()->getVkInstance();
 	auto* pPhysicalDevice = IDeviceManager()->getPhysicalDevice(0);
 
-	// ƒfƒoƒCƒX‚ÆƒLƒ…[‚Ì¶¬.
+	// ãƒ‡ãƒã‚¤ã‚¹ã¨ã‚­ãƒ¥ãƒ¼ã®ç”Ÿæˆ.
 	{
 		
-		// ƒLƒ…[‚Ì”‚ğæ“¾
+		// ã‚­ãƒ¥ãƒ¼ã®æ•°ã‚’å–å¾—
 		uint32_t propCount;
 		vkGetPhysicalDeviceQueueFamilyProperties(*pPhysicalDevice, &propCount, nullptr);
 
-		// •¨—ƒfƒoƒCƒXã‚Å—˜—p‰Â”\‚ÈƒLƒ…[‚ÌƒvƒƒpƒeƒB‚ğæ“¾
+		// ç‰©ç†ãƒ‡ãƒã‚¤ã‚¹ä¸Šã§åˆ©ç”¨å¯èƒ½ãªã‚­ãƒ¥ãƒ¼ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’å–å¾—
 		std::vector<VkQueueFamilyProperties> props;
 		props.resize(propCount);
 		vkGetPhysicalDeviceQueueFamilyProperties(*pPhysicalDevice, &propCount, props.data());
 
-		// ƒLƒ…[‚©‚çƒtƒ@ƒ~ƒŠ[ƒCƒ“ƒfƒbƒNƒX‚ğæ“¾
+		// ã‚­ãƒ¥ãƒ¼ã‹ã‚‰ãƒ•ã‚¡ãƒŸãƒªãƒ¼ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å–å¾—
 		for (auto i = 0u; i<propCount; ++i)
 		{
-			// •`‰æ‚ğs‚¢‚½‚¢‚Ì‚Å•`‰æ‚ÌƒCƒ“ƒfƒbƒNƒX‚ğæ“¾
+			// æç”»ã‚’è¡Œã„ãŸã„ã®ã§æç”»ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å–å¾—
 			if (props[i].queueFlags & VK_QUEUE_GRAPHICS_BIT)
 			{
 				_graphicsFamilyIndex = i;
 			}
 		}
 
-		// ƒLƒ…[ì¬î•ñ‚Ìİ’è
+		// ã‚­ãƒ¥ãƒ¼ä½œæˆæƒ…å ±ã®è¨­å®š
 		VkDeviceQueueCreateInfo queueInfo;
 		float queuePriorities[] = { 0.0f };
 		queueInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
@@ -117,7 +117,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		queueInfo.queueFamilyIndex = _graphicsFamilyIndex;
 		queueInfo.pQueuePriorities = queuePriorities;
 
-		// ƒfƒoƒCƒXì¬î•ñ‚Ìİ’è
+		// ãƒ‡ãƒã‚¤ã‚¹ä½œæˆæƒ…å ±ã®è¨­å®š
 		VkDeviceCreateInfo deviceInfo = {};
 		deviceInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
 		deviceInfo.pNext = nullptr;
@@ -129,7 +129,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		deviceInfo.ppEnabledExtensionNames = nullptr;
 		deviceInfo.pEnabledFeatures = nullptr;
 
-		// ƒfƒoƒCƒX‚Ìì¬
+		// ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆ
 		auto result = vkCreateDevice(*pPhysicalDevice, &deviceInfo, nullptr, &vkDevice);
 		if (result != VK_SUCCESS)
 		{
@@ -142,7 +142,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		props.clear();
 	}
 
-	// ƒtƒFƒ“ƒX(CPU‚Ìƒƒ‚ƒŠƒoƒŠƒA)‚Ì¶¬.
+	// ãƒ•ã‚§ãƒ³ã‚¹(CPUã®ãƒ¡ãƒ¢ãƒªãƒãƒªã‚¢)ã®ç”Ÿæˆ.
 	{
 		VkFenceCreateInfo info = {};
 		info.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
@@ -156,7 +156,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		}
 	}
 
-	// ƒZƒ}ƒtƒH(GPU‚Ìƒƒ‚ƒŠƒoƒŠƒA)‚Ì¶¬.
+	// ã‚»ãƒãƒ•ã‚©(GPUã®ãƒ¡ãƒ¢ãƒªãƒãƒªã‚¢)ã®ç”Ÿæˆ.
 	{
 		VkSemaphoreCreateInfo info = {};
 		info.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -171,7 +171,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		}
 	}
 
-	// ƒRƒ}ƒ“ƒhƒv[ƒ‹‚Ì¶¬.
+	// ã‚³ãƒãƒ³ãƒ‰ãƒ—ãƒ¼ãƒ«ã®ç”Ÿæˆ.
 	{
 		VkCommandPoolCreateInfo info = {};
 		info.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
@@ -189,9 +189,9 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 
 	
 
-	// ƒT[ƒtƒFƒCƒX‚Ì¶¬.
+	// ã‚µãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã®ç”Ÿæˆ.
 	{
-		// ƒT[ƒtƒFƒCƒXî•ñ‚Ìİ’è
+		// ã‚µãƒ¼ãƒ•ã‚§ã‚¤ã‚¹æƒ…å ±ã®è¨­å®š
 		VkWin32SurfaceCreateInfoKHR surfaceInfo = {};
 		surfaceInfo.sType		= VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
 		surfaceInfo.pNext		= nullptr;
@@ -199,7 +199,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		surfaceInfo.hinstance	= hInstance;
 		surfaceInfo.hwnd		= hWnd;
 
-		// ƒT[ƒtƒFƒCƒX‚Ìì¬
+		// ã‚µãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã®ä½œæˆ
 		auto result = vkCreateWin32SurfaceKHR(vkInstance, &surfaceInfo, nullptr, &_surface);
 		if (result != VK_SUCCESS)
 		{
@@ -208,14 +208,14 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		}
 	}
 
-	// ƒCƒ[ƒW‚ÌƒtƒH[ƒ}ƒbƒgİ’è
+	// ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆè¨­å®š
 	VkFormat        imageFormat = VK_FORMAT_R8G8B8A8_UNORM;
-	// F‹óŠÔ‚Ìİ’è
+	// è‰²ç©ºé–“ã®è¨­å®š
 	VkColorSpaceKHR imageColorSpace = VK_COLORSPACE_SRGB_NONLINEAR_KHR;
 
-	// ƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ì¶¬.
+	// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®ç”Ÿæˆ.
 	{
-		// •¨—ƒfƒoƒCƒX‚ÌƒT[ƒtƒFƒCƒXƒtƒH[ƒ}ƒbƒg‚Ì”‚ğæ“¾
+		// ç‰©ç†ãƒ‡ãƒã‚¤ã‚¹ã®ã‚µãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®æ•°ã‚’å–å¾—
 		uint32_t count = 0;
 		auto result = vkGetPhysicalDeviceSurfaceFormatsKHR(*pPhysicalDevice, _surface, &count, nullptr);
 		if (result != VK_SUCCESS)
@@ -224,7 +224,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			return false;
 		}
 
-		// ƒtƒH[ƒ}ƒbƒg”•ªƒƒ‚ƒŠ‚ğŠm•Û‚µAƒT[ƒtƒFƒCƒXƒtƒH[ƒ}ƒbƒgî•ñ‚ğæ“¾
+		// ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆæ•°åˆ†ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿ã—ã€ã‚µãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆæƒ…å ±ã‚’å–å¾—
 		std::vector<VkSurfaceFormatKHR> formats;
 		formats.resize(count);
 		result = vkGetPhysicalDeviceSurfaceFormatsKHR(*pPhysicalDevice, _surface, &count, formats.data());
@@ -234,11 +234,11 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			return false;
 		}
 
-		// ƒtƒH[ƒ}ƒbƒgˆê——‚Ì’†‚ğŒŸõ
+		// ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆä¸€è¦§ã®ä¸­ã‚’æ¤œç´¢
 		bool isFind = false;
 		for (size_t i = 0; i<formats.size(); ++i)
 		{
-			// İ’è‚µ‚½‚¢FƒtƒH[ƒ}ƒbƒg‚¨‚æ‚ÑF‹óŠÔ‚ª‚ ‚é‚©‚Ç‚¤‚©
+			// è¨­å®šã—ãŸã„è‰²ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆãŠã‚ˆã³è‰²ç©ºé–“ãŒã‚ã‚‹ã‹ã©ã†ã‹
 			if (imageFormat == formats[i].format &&
 				imageColorSpace == formats[i].colorSpace)
 			{
@@ -247,18 +247,18 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			}
 		}
 
-		// ‚È‚¢ê‡‚ÍƒfƒtƒHƒ‹ƒg‚Ì‚à‚Ì‚ğw’è‚·‚é
+		// ãªã„å ´åˆã¯ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ã‚‚ã®ã‚’æŒ‡å®šã™ã‚‹
 		if (!isFind)
 		{
 			imageFormat = formats[0].format;
 			imageColorSpace = formats[0].colorSpace;
 		}
 
-		// ƒT[ƒtƒFƒCƒX‚Ì‹@”\‚¨‚æ‚ÑˆÚ“®‰ñ“]‚Ìƒtƒ‰ƒOİ’è
+		// ã‚µãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã®æ©Ÿèƒ½ãŠã‚ˆã³ç§»å‹•å›è»¢ã®ãƒ•ãƒ©ã‚°è¨­å®š
 		VkSurfaceCapabilitiesKHR capabilities;
 		VkSurfaceTransformFlagBitsKHR preTransform = VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR;
 		{
-			// ƒT[ƒtƒFƒCƒX‚Ì‹@”\‚ğæ“¾
+			// ã‚µãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã®æ©Ÿèƒ½ã‚’å–å¾—
 			auto result = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
 				*pPhysicalDevice,
 				_surface,
@@ -269,17 +269,17 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 				return false;
 			}
 
-			// ƒT[ƒtƒFƒCƒX‚ªƒTƒ|[ƒg‚µ‚Ä‚¢‚éˆÚ“®‰ñ“]ƒtƒ‰ƒO‚ğİ’è‚·‚é
+			// ã‚µãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ãŒã‚µãƒãƒ¼ãƒˆã—ã¦ã„ã‚‹ç§»å‹•å›è»¢ãƒ•ãƒ©ã‚°ã‚’è¨­å®šã™ã‚‹
 			if (!(capabilities.supportedTransforms & VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR))
 			{
 				preTransform = capabilities.currentTransform;
 			}
 		}
 
-		// ƒvƒŒƒ[ƒ“ƒgƒ‚[ƒh‚Ìİ’è
+		// ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆãƒ¢ãƒ¼ãƒ‰ã®è¨­å®š
 		VkPresentModeKHR presentMode = VK_PRESENT_MODE_FIFO_KHR;
 		{
-			// ƒvƒŒƒ[ƒ“ƒgƒ‚[ƒh‚ÌŒÂ”‚ğæ“¾
+			// ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆãƒ¢ãƒ¼ãƒ‰ã®å€‹æ•°ã‚’å–å¾—
 			uint32_t presentModeCount;
 			result = vkGetPhysicalDeviceSurfacePresentModesKHR(
 				*pPhysicalDevice,
@@ -292,10 +292,10 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 				return false;
 			}
 
-			// ƒvƒŒƒ[ƒ“ƒgƒ‚[ƒh‚ÌŒÂ”•ªƒƒ‚ƒŠŠm•Û
+			// ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆãƒ¢ãƒ¼ãƒ‰ã®å€‹æ•°åˆ†ãƒ¡ãƒ¢ãƒªç¢ºä¿
 			std::vector<VkPresentModeKHR> presentModes;
 			presentModes.resize(presentModeCount);
-			// •¨—ƒfƒoƒCƒX‚©‚çƒvƒŒƒ[ƒ“ƒgƒ‚[ƒh‚Ìî•ñ‚ğæ“¾
+			// ç‰©ç†ãƒ‡ãƒã‚¤ã‚¹ã‹ã‚‰ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆãƒ¢ãƒ¼ãƒ‰ã®æƒ…å ±ã‚’å–å¾—
 			result = vkGetPhysicalDeviceSurfacePresentModesKHR(
 				*pPhysicalDevice,
 				_surface,
@@ -307,7 +307,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 				return false;
 			}
 
-			// ƒvƒŒƒ[ƒ“ƒgƒ‚[ƒhˆê——‚©‚çİ’è‚µ‚½‚¢‚à‚Ì‚ª‚ ‚é‚©ŒŸõ
+			// ãƒ—ãƒ¬ã‚¼ãƒ³ãƒˆãƒ¢ãƒ¼ãƒ‰ä¸€è¦§ã‹ã‚‰è¨­å®šã—ãŸã„ã‚‚ã®ãŒã‚ã‚‹ã‹æ¤œç´¢
 			for (size_t i = 0; i<presentModes.size(); ++i)
 			{
 				if (presentModes[i] == VK_PRESENT_MODE_MAILBOX_KHR)
@@ -324,16 +324,16 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			presentModes.clear();
 		}
 
-		// ƒT[ƒtƒFƒCƒX‚ªƒTƒ|[ƒg‚µ‚Ä‚¢‚éƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ì”‚ğİ’è
+		// ã‚µãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ãŒã‚µãƒãƒ¼ãƒˆã—ã¦ã„ã‚‹ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®æ•°ã‚’è¨­å®š
 		uint32_t desiredSwapChainImageCount = capabilities.minImageCount + 1;
 		if ((capabilities.maxImageCount > 0) && (desiredSwapChainImageCount > capabilities.maxImageCount))
 		{
 			desiredSwapChainImageCount = capabilities.maxImageCount;
 		}
 
-		// ƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ìì¬
+		// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®ä½œæˆ
 		{
-			// ƒXƒƒbƒvƒ`ƒFƒCƒ“ì¬î•ñ‚Ìİ’è
+			// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ä½œæˆæƒ…å ±ã®è¨­å®š
 			VkSwapchainCreateInfoKHR createInfo = {};
 			createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
 			createInfo.pNext = nullptr;
@@ -354,7 +354,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			createInfo.clipped = VK_TRUE;
 			createInfo.oldSwapchain = VK_NULL_HANDLE;
 
-			// ƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ìì¬
+			// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®ä½œæˆ
 			auto result = vkCreateSwapchainKHR(vkDevice, &createInfo, nullptr, &_swapChain);
 			if (result != VK_SUCCESS)
 			{
@@ -363,7 +363,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			}
 		}
 
-		// ƒXƒƒbƒvƒ`ƒFƒCƒ“ƒCƒ[ƒW‚ÌŒÂ”‚ğæ“¾
+		// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã‚¤ãƒ¡ãƒ¼ã‚¸ã®å€‹æ•°ã‚’å–å¾—
 		_swapChainImageCount = 0;
 		result = vkGetSwapchainImagesKHR(vkDevice, _swapChain, &_swapChainImageCount, nullptr);
 		if (result != VK_SUCCESS)
@@ -375,12 +375,12 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 
 	
 
-	// ƒRƒ}ƒ“ƒhƒoƒbƒtƒ@‚Ì¶¬.
+	// ã‚³ãƒãƒ³ãƒ‰ãƒãƒƒãƒ•ã‚¡ã®ç”Ÿæˆ.
 	{
-		// ƒƒ‚ƒŠ‚ğŠm•Û.
+		// ãƒ¡ãƒ¢ãƒªã‚’ç¢ºä¿.
 		_commandBuffers.resize(_swapChainImageCount);
 
-		// ƒRƒ}ƒ“ƒhƒoƒbƒtƒ@ƒAƒƒP[ƒgî•ñ‚Ìİ’è
+		// ã‚³ãƒãƒ³ãƒ‰ãƒãƒƒãƒ•ã‚¡ã‚¢ãƒ­ã‚±ãƒ¼ãƒˆæƒ…å ±ã®è¨­å®š
 		VkCommandBufferAllocateInfo info = {};
 		info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
 		info.pNext = nullptr;
@@ -388,7 +388,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		info.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
 		info.commandBufferCount = _swapChainImageCount;
 
-		// ƒRƒ}ƒ“ƒhƒoƒbƒtƒ@—pƒƒ‚ƒŠ‚ÌŠ„‚è“–‚Ä
+		// ã‚³ãƒãƒ³ãƒ‰ãƒãƒƒãƒ•ã‚¡ç”¨ãƒ¡ãƒ¢ãƒªã®å‰²ã‚Šå½“ã¦
 		auto result = vkAllocateCommandBuffers(vkDevice, &info, _commandBuffers.data());
 		if (result != VK_SUCCESS)
 		{
@@ -396,7 +396,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			return false;
 		}
 
-		// ƒRƒ}ƒ“ƒhƒoƒbƒtƒ@Œp³î•ñ(?)‚Ìİ’è
+		// ã‚³ãƒãƒ³ãƒ‰ãƒãƒƒãƒ•ã‚¡ç¶™æ‰¿æƒ…å ±(?)ã®è¨­å®š
 		VkCommandBufferInheritanceInfo inheritanceInfo = {};
 		inheritanceInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO;
 		inheritanceInfo.pNext = nullptr;
@@ -407,14 +407,14 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		inheritanceInfo.queryFlags = 0;
 		inheritanceInfo.pipelineStatistics = 0;
 
-		// ƒRƒ}ƒ“ƒhƒoƒbƒtƒ@‹L˜^ŠJn—p‚Ìî•ñİ’è
+		// ã‚³ãƒãƒ³ãƒ‰ãƒãƒƒãƒ•ã‚¡è¨˜éŒ²é–‹å§‹ç”¨ã®æƒ…å ±è¨­å®š
 		VkCommandBufferBeginInfo beginInfo = {};
 		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 		beginInfo.pNext = nullptr;
 		beginInfo.flags = 0;
 		beginInfo.pInheritanceInfo = &inheritanceInfo;
 
-		// ƒRƒ}ƒ“ƒh‚Ì‹L˜^ŠJn
+		// ã‚³ãƒãƒ³ãƒ‰ã®è¨˜éŒ²é–‹å§‹
 		result = vkBeginCommandBuffer(_commandBuffers[_bufferIndex], &beginInfo);
 		if (result != VK_SUCCESS)
 		{
@@ -423,13 +423,13 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		}
 	}
 
-	// ƒCƒ[ƒW‚Ìì¬
+	// ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ä½œæˆ
 	{
 		
-		// ƒoƒbƒNƒoƒbƒtƒ@‚Ìƒƒ‚ƒŠŠm•Û
+		// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®ãƒ¡ãƒ¢ãƒªç¢ºä¿
 		_backBuffers.resize(_swapChainImageCount);
 
-		// ƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ì”•ªƒCƒ[ƒW‚ğì¬
+		// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®æ•°åˆ†ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’ä½œæˆ
 		std::vector<VkImage> images;
 		images.resize(_swapChainImageCount);
 		auto result = vkGetSwapchainImagesKHR(vkDevice, _swapChain, &_swapChainImageCount, images.data());
@@ -439,7 +439,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			return false;
 		}
 
-		// ƒCƒ[ƒWî•ñ‚ğŠi”[
+		// ã‚¤ãƒ¡ãƒ¼ã‚¸æƒ…å ±ã‚’æ ¼ç´
 		for (auto i = 0u; i<_swapChainImageCount; ++i)
 		{
 			_backBuffers[i]._image = images[i];
@@ -448,12 +448,12 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		images.clear();
 	}
 
-	// ƒCƒ[ƒWƒrƒ…[‚Ì¶¬.
+	// ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ“ãƒ¥ãƒ¼ã®ç”Ÿæˆ.
 	{
-		// ƒoƒbƒNƒoƒbƒtƒ@‚Ì”•ªƒCƒ[ƒWƒrƒ…[‚ğì¬
+		// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã®æ•°åˆ†ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ“ãƒ¥ãƒ¼ã‚’ä½œæˆ
 		for (size_t i = 0; i<_backBuffers.size(); ++i)
 		{
-			// ƒrƒ…[î•ñ‚Ìİ’è
+			// ãƒ“ãƒ¥ãƒ¼æƒ…å ±ã®è¨­å®š
 			VkImageViewCreateInfo viewInfo = {};
 			viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 			viewInfo.pNext = nullptr;
@@ -467,7 +467,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			viewInfo.components.a = VK_COMPONENT_SWIZZLE_A;
 			viewInfo.subresourceRange = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 0, 1 };
 
-			// ƒCƒ[ƒWƒrƒ…[‚Ìì¬
+			// ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ“ãƒ¥ãƒ¼ã®ä½œæˆ
 			auto result = vkCreateImageView(vkDevice, &viewInfo, nullptr, &_backBuffers[i]._view);
 			if (result != VK_SUCCESS)
 			{
@@ -475,7 +475,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 				return false;
 			}
 
-			// ƒCƒ[ƒW‚ÌƒŒƒCƒAƒEƒg‚ğİ’è
+			// ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã‚’è¨­å®š
 			SetImageLayout(
 				vkDevice,
 				_commandBuffers[_bufferIndex],
@@ -486,16 +486,16 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		}
 	}
 
-	// [“xƒXƒeƒ“ƒVƒ‹ƒoƒbƒtƒ@‚Ì¶¬.
+	// æ·±åº¦ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ãƒãƒƒãƒ•ã‚¡ã®ç”Ÿæˆ.
 	{
 		VkFormat depthFormat = VK_FORMAT_D24_UNORM_S8_UINT;
 
-		// •¨—ƒfƒoƒCƒX‚©‚çƒtƒH[ƒ}ƒbƒgƒvƒƒpƒeƒB‚ğæ“¾
+		// ç‰©ç†ãƒ‡ãƒã‚¤ã‚¹ã‹ã‚‰ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’å–å¾—
 		VkImageTiling tiling;
 		VkFormatProperties props;
 		vkGetPhysicalDeviceFormatProperties(*pPhysicalDevice, depthFormat, &props);
 
-		// ƒtƒH[ƒ}ƒbƒg‚ğİ’è
+		// ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’è¨­å®š
 		if (props.linearTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT)
 		{
 			tiling = VK_IMAGE_TILING_LINEAR;
@@ -510,7 +510,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			return false;
 		}
 
-		// ƒCƒ[ƒWì¬î•ñİ’è
+		// ã‚¤ãƒ¡ãƒ¼ã‚¸ä½œæˆæƒ…å ±è¨­å®š
 		VkImageCreateInfo info = {};
 		info.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
 		info.pNext = nullptr;
@@ -530,7 +530,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		info.pQueueFamilyIndices = nullptr;
 		info.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 
-		// ƒCƒ[ƒW‚Ìì¬
+		// ã‚¤ãƒ¡ãƒ¼ã‚¸ã®ä½œæˆ
 		auto result = vkCreateImage(vkDevice, &info, nullptr, &_depth._image);
 		if (result != VK_SUCCESS)
 		{
@@ -538,7 +538,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			return false;
 		}
 
-		// ƒƒ‚ƒŠƒAƒƒP[ƒg•K—vğŒ‚Ìæ“¾
+		// ãƒ¡ãƒ¢ãƒªã‚¢ãƒ­ã‚±ãƒ¼ãƒˆå¿…è¦æ¡ä»¶ã®å–å¾—
 		VkMemoryRequirements requirements;
 		vkGetImageMemoryRequirements(vkDevice, _depth._image, &requirements);
 
@@ -559,14 +559,14 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			typeBits >>= 1;
 		}
 
-		// ƒƒ‚ƒŠƒAƒƒP[ƒgî•ñ‚Ìİ’è
+		// ãƒ¡ãƒ¢ãƒªã‚¢ãƒ­ã‚±ãƒ¼ãƒˆæƒ…å ±ã®è¨­å®š
 		VkMemoryAllocateInfo allocInfo = {};
 		allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 		allocInfo.pNext = nullptr;
 		allocInfo.allocationSize = requirements.size;
 		allocInfo.memoryTypeIndex = typeIndex;
 
-		// ƒƒ‚ƒŠŠm•Û
+		// ãƒ¡ãƒ¢ãƒªç¢ºä¿
 		result = vkAllocateMemory(vkDevice, &allocInfo, nullptr, &_depth._memory);
 		if (result != VK_SUCCESS)
 		{
@@ -574,7 +574,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			return false;
 		}
 
-		// ƒCƒ[ƒW‚ÉŠ„‚è“–‚Ä
+		// ã‚¤ãƒ¡ãƒ¼ã‚¸ã«å‰²ã‚Šå½“ã¦
 		result = vkBindImageMemory(vkDevice, _depth._image, _depth._memory, 0);
 		if (result != VK_SUCCESS)
 		{
@@ -582,7 +582,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			return false;
 		}
 
-		// ƒCƒ[ƒWƒrƒ…[ì¬î•ñ‚Ìİ’è
+		// ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ“ãƒ¥ãƒ¼ä½œæˆæƒ…å ±ã®è¨­å®š
 		VkImageViewCreateInfo viewInfo = {};
 		viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 		viewInfo.pNext = nullptr;
@@ -600,7 +600,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
 		viewInfo.flags = 0;
 
-		// ƒCƒ[ƒWƒrƒ…[‚Ìì¬
+		// ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ“ãƒ¥ãƒ¼ã®ä½œæˆ
 		result = vkCreateImageView(vkDevice, &viewInfo, nullptr, &_depth._view);
 		if (result != VK_SUCCESS)
 		{
@@ -608,7 +608,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			return false;
 		}
 
-		// ƒCƒ[ƒWƒŒƒCƒAƒEƒg‚Ìİ’è
+		// ã‚¤ãƒ¡ãƒ¼ã‚¸ãƒ¬ã‚¤ã‚¢ã‚¦ãƒˆã®è¨­å®š
 		SetImageLayout(
 			vkDevice,
 			_commandBuffers[_bufferIndex],
@@ -618,11 +618,11 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
 	}
 
-	// ƒtƒŒ[ƒ€ƒoƒbƒtƒ@‚Ì¶¬.
+	// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒãƒƒãƒ•ã‚¡ã®ç”Ÿæˆ.
 	{
 		VkImageView attachments[2];
 
-		// ƒtƒŒ[ƒ€ƒoƒbƒtƒ@î•ñ‚Ìİ’è
+		// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒãƒƒãƒ•ã‚¡æƒ…å ±ã®è¨­å®š
 		VkFramebufferCreateInfo info = {};
 		info.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
 		info.pNext = nullptr;
@@ -634,9 +634,9 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		info.height = 1080;
 		info.layers = 1;
 
-		// ƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ì”‚Åƒƒ‚ƒŠŠm•Û
+		// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®æ•°ã§ãƒ¡ãƒ¢ãƒªç¢ºä¿
 		_frameBuffers.resize(_swapChainImageCount);
-		// ƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ì”•ªƒtƒŒ[ƒ€ƒoƒbƒtƒ@‚ğì¬
+		// ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ã‚¤ãƒ³ã®æ•°åˆ†ãƒ•ãƒ¬ãƒ¼ãƒ ãƒãƒƒãƒ•ã‚¡ã‚’ä½œæˆ
 		for (auto i = 0u; i<_swapChainImageCount; ++i)
 		{
 			attachments[0] = _backBuffers[i]._view;
@@ -650,9 +650,9 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		}
 	}
 
-	// ƒRƒ}ƒ“ƒh‚ğÀs‚µ‚Ä‚¨‚­.
+	// ã‚³ãƒãƒ³ãƒ‰ã‚’å®Ÿè¡Œã—ã¦ãŠã.
 	{
-		// ƒRƒ}ƒ“ƒh‚Ì‹L˜^I—¹
+		// ã‚³ãƒãƒ³ãƒ‰ã®è¨˜éŒ²çµ‚äº†
 		auto result = vkEndCommandBuffer(_commandBuffers[_bufferIndex]);
 		if (result != VK_SUCCESS)
 		{
@@ -662,7 +662,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 
 		VkPipelineStageFlags pipeStageFlags = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
 
-		// ƒTƒuƒ~ƒbƒgî•ñ‚Ìİ’è
+		// ã‚µãƒ–ãƒŸãƒƒãƒˆæƒ…å ±ã®è¨­å®š
 		VkSubmitInfo info = {};
 		info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 		info.pNext = nullptr;
@@ -674,7 +674,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		info.signalSemaphoreCount = 0;
 		info.pSignalSemaphores = nullptr;
 
-		// ƒRƒ}ƒ“ƒh‚ÌÀs
+		// ã‚³ãƒãƒ³ãƒ‰ã®å®Ÿè¡Œ
 		result = vkQueueSubmit(_graphicsQueue, 1, &info, VK_NULL_HANDLE);
 		if (result != VK_SUCCESS)
 		{
@@ -682,7 +682,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 			return false;
 		}
 
-		// ƒRƒ}ƒ“ƒhŠ®—¹‘Ò‹@
+		// ã‚³ãƒãƒ³ãƒ‰å®Œäº†å¾…æ©Ÿ
 		result = vkQueueWaitIdle(_graphicsQueue);
 		if (result != VK_SUCCESS)
 		{
@@ -691,9 +691,9 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 		}
 	}
 
-	// ƒtƒŒ[ƒ€‚ğ—pˆÓ.
+	// ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ç”¨æ„.
 	{
-		// •\¦ƒCƒ[ƒW‚Ìì¬
+		// è¡¨ç¤ºã‚¤ãƒ¡ãƒ¼ã‚¸ã®ä½œæˆ
 		auto result = vkAcquireNextImageKHR(
 			vkDevice,
 			_swapChain,
@@ -714,7 +714,7 @@ bool vkMain::initialize(HINSTANCE& hInstance, HWND& hWnd)
 }
 
 //---------------------------------------------------------------------------
-//! I—¹ˆ—
+//! çµ‚äº†æ™‚å‡¦ç†
 //---------------------------------------------------------------------------
 void vkMain::cleanup()
 {
@@ -787,17 +787,17 @@ void vkMain::cleanup()
 }
 
 //---------------------------------------------------------------------------
-//! •`‰æˆ—
+//! æç”»å‡¦ç†
 //---------------------------------------------------------------------------
 void vkMain::render()
 {
 	//ASVK_UNUSED(args);
 	auto cmd = _commandBuffers[_bufferIndex];
 
-	// ƒfƒoƒCƒXæ“¾
+	// ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 	auto& vkDevice = IDeviceManager()->getVkDevice();
 
-	// ƒRƒ}ƒ“ƒh‹L˜^ŠJn.
+	// ã‚³ãƒãƒ³ãƒ‰è¨˜éŒ²é–‹å§‹.
 	{
 		VkCommandBufferInheritanceInfo inheritanceInfo = {};
 		inheritanceInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO;
@@ -818,7 +818,7 @@ void vkMain::render()
 		vkBeginCommandBuffer(cmd, &cmdBeginInfo);
 	}
 
-	// ƒJƒ‰[ƒoƒbƒtƒ@‚ğƒNƒŠƒA.
+	// ã‚«ãƒ©ãƒ¼ãƒãƒƒãƒ•ã‚¡ã‚’ã‚¯ãƒªã‚¢.
 	{
 		VkClearColorValue clearColor;
 		clearColor.float32[0] = 0.392156899f;
@@ -842,7 +842,7 @@ void vkMain::render()
 			&range);
 	}
 
-	// [“xƒoƒbƒtƒ@‚ğƒNƒŠƒA.
+	// æ·±åº¦ãƒãƒƒãƒ•ã‚¡ã‚’ã‚¯ãƒªã‚¢.
 	{
 		VkClearDepthStencilValue clearDepthStencil;
 		clearDepthStencil.depth = 1.0f;
@@ -864,7 +864,7 @@ void vkMain::render()
 			&range);
 	}
 
-	// ƒŠƒ\[ƒXƒoƒŠƒA‚Ìİ’è.
+	// ãƒªã‚½ãƒ¼ã‚¹ãƒãƒªã‚¢ã®è¨­å®š.
 	{
 		VkImageMemoryBarrier barrier;
 		barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
@@ -895,10 +895,10 @@ void vkMain::render()
 			&barrier);
 	}
 
-	// ƒRƒ}ƒ“ƒh‚Ì‹L˜^‚ğI—¹.
+	// ã‚³ãƒãƒ³ãƒ‰ã®è¨˜éŒ²ã‚’çµ‚äº†.
 	vkEndCommandBuffer(cmd);
 
-	// ƒRƒ}ƒ“ƒh‚ğÀs‚µC•\¦‚·‚é.
+	// ã‚³ãƒãƒ³ãƒ‰ã‚’å®Ÿè¡Œã—ï¼Œè¡¨ç¤ºã™ã‚‹.
 	{
 		VkPipelineStageFlags pipeStageFlags = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
 
@@ -913,17 +913,17 @@ void vkMain::render()
 		info.signalSemaphoreCount = 0;
 		info.pSignalSemaphores = nullptr;
 
-		// ƒRƒ}ƒ“ƒh‚ğÀs.
+		// ã‚³ãƒãƒ³ãƒ‰ã‚’å®Ÿè¡Œ.
 		auto result = vkQueueSubmit(_graphicsQueue, 1, &info, _graphicsFence);
 		if (result != VK_SUCCESS)
 		{
 			OutputDebugStringA("Error : vkQueueSubmit() Failed.");
 		}
 
-		// Š®—¹‚ğ‘Ò‹@.
+		// å®Œäº†ã‚’å¾…æ©Ÿ.
 		result = vkWaitForFences(vkDevice, 1, &_graphicsFence, VK_TRUE, TimeOutNanoSec);
 
-		// ¬Œ÷‚µ‚½‚ç•\¦.
+		// æˆåŠŸã—ãŸã‚‰è¡¨ç¤º.
 		if (result == VK_SUCCESS)
 		{
 			VkPresentInfoKHR present = {};
@@ -947,14 +947,14 @@ void vkMain::render()
 			OutputDebugStringA("Error : vkWaitForFences() Timeout.");
 		}
 
-		// ƒtƒFƒ“ƒX‚ğƒŠƒZƒbƒg.
+		// ãƒ•ã‚§ãƒ³ã‚¹ã‚’ãƒªã‚»ãƒƒãƒˆ.
 		result = vkResetFences(vkDevice, 1, &_graphicsFence);
 		if (result != VK_SUCCESS)
 		{
 			OutputDebugStringA("Error : vkResetFences() Failed.");
 		}
 
-		// Ÿ‚Ì‰æ‘œ‚ğæ“¾.
+		// æ¬¡ã®ç”»åƒã‚’å–å¾—.
 		result = vkAcquireNextImageKHR(
 			vkDevice,
 			_swapChain,

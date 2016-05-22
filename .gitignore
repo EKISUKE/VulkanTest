@@ -1,0 +1,11 @@
+ipch/TESTVULKAN-8d4bb248/TESTVULKAN-aeef10fb.ipch
+*.opendb
+*.obj
+x64/Debug/TestVulkan.exe
+*.ilk
+*.log
+x64/Debug/TestVulkan.pch
+*.pdb
+*.tlog
+x64/Debug/vc140.idb
+*.res

@@ -1,14 +1,14 @@
-//---------------------------------------------------------------------------
+ï»¿//---------------------------------------------------------------------------
 //
 // @file	DeviceManager.cpp
-// @brief	ƒfƒoƒCƒXŠÇ—
+// @brief	ãƒ‡ãƒã‚¤ã‚¹ç®¡ç†
 // @author	Yuki.Ishigaki
 //
 //---------------------------------------------------------------------------
 #include "stdafx.h"
 
 //---------------------------------------------------------------------------
-//	ƒƒ‚ƒŠŠm•Ûˆ—.
+//	ãƒ¡ãƒ¢ãƒªç¢ºä¿å‡¦ç†.
 //---------------------------------------------------------------------------
 VKAPI_ATTR
 void* VKAPI_CALL Alloc
@@ -25,7 +25,7 @@ void* VKAPI_CALL Alloc
 }
 
 //---------------------------------------------------------------------------
-//	ƒƒ‚ƒŠÄŠm•Ûˆ—.
+//	ãƒ¡ãƒ¢ãƒªå†ç¢ºä¿å‡¦ç†.
 //---------------------------------------------------------------------------
 VKAPI_ATTR
 void* VKAPI_CALL Realloc
@@ -43,7 +43,7 @@ void* VKAPI_CALL Realloc
 }
 
 //---------------------------------------------------------------------------
-// ƒƒ‚ƒŠ‰ğ•úˆ—.
+// ãƒ¡ãƒ¢ãƒªè§£æ”¾å‡¦ç†.
 //---------------------------------------------------------------------------
 VKAPI_ATTR
 void VKAPI_CALL Free(void* pUserData, void* pMemory)
@@ -55,17 +55,17 @@ void VKAPI_CALL Free(void* pUserData, void* pMemory)
 
 
 //---------------------------------------------------------------------------
-// ‰Šú‰»
+// åˆæœŸåŒ–
 //---------------------------------------------------------------------------
 bool DeviceManager::initialize()
 {
-	// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì¶¬.
+	// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç”Ÿæˆ.
 	{
 		std::array<const char*, 2> extensions;
 		extensions[0] = VK_KHR_SURFACE_EXTENSION_NAME;
 		extensions[1] = VK_KHR_WIN32_SURFACE_EXTENSION_NAME;
 
-		// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“î•ñ‚Ìİ’è
+		// ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³æƒ…å ±ã®è¨­å®š
 		VkApplicationInfo appInfo = {};
 		appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
 		appInfo.pNext = nullptr;
@@ -75,7 +75,7 @@ bool DeviceManager::initialize()
 		appInfo.engineVersion = 1;
 		appInfo.apiVersion = VK_API_VERSION_1_0;
 
-		// ƒCƒ“ƒXƒ^ƒ“ƒX¶¬‚Ìî•ñ‚Ìİ’è
+		// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆæ™‚ã®æƒ…å ±ã®è¨­å®š
 		VkInstanceCreateInfo instanceInfo = {};
 		instanceInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 		instanceInfo.pNext = nullptr;
@@ -86,14 +86,14 @@ bool DeviceManager::initialize()
 		instanceInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
 		instanceInfo.ppEnabledExtensionNames = extensions.data();
 
-		// ƒƒ‚ƒŠŠm•Û‚Ìˆ—‚ÌƒR[ƒ‹ƒoƒbƒNŠÖ”‚ğİ’è
+		// ãƒ¡ãƒ¢ãƒªç¢ºä¿æ™‚ã®å‡¦ç†ã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°ã‚’è¨­å®š
 		_allocatorCallbacks.pfnAllocation = Alloc;
 		_allocatorCallbacks.pfnFree = Free;
 		_allocatorCallbacks.pfnReallocation = Realloc;
 		_allocatorCallbacks.pfnInternalAllocation = nullptr;
 		_allocatorCallbacks.pfnInternalFree = nullptr;
 
-		// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìì¬
+		// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ä½œæˆ
 		auto result = vkCreateInstance(&instanceInfo, &_allocatorCallbacks, &_vkInstance);
 		if (result != VK_SUCCESS)
 		{
@@ -102,9 +102,9 @@ bool DeviceManager::initialize()
 		}
 	}
 
-	// •¨—ƒfƒoƒCƒX‚Ìæ“¾.
+	// ç‰©ç†ãƒ‡ãƒã‚¤ã‚¹ã®å–å¾—.
 	{
-		// ‚Ü‚¸‚Í•¨—ƒfƒoƒCƒX‚Ì”‚ğæ“¾‚·‚é
+		// ã¾ãšã¯ç‰©ç†ãƒ‡ãƒã‚¤ã‚¹ã®æ•°ã‚’å–å¾—ã™ã‚‹
 		uint32_t count = 0;
 		auto result = vkEnumeratePhysicalDevices(_vkInstance, &count, nullptr);
 		if (result != VK_SUCCESS || count < 1)
@@ -113,11 +113,11 @@ bool DeviceManager::initialize()
 			return false;
 		}
 
-		// •¨—ƒfƒoƒCƒX‚Ì”‚É‰‚¶‚ÄƒfƒoƒCƒXî•ñ‚ğŠi”[‚·‚é”z—ñ‚ğ—pˆÓ
+		// ç‰©ç†ãƒ‡ãƒã‚¤ã‚¹ã®æ•°ã«å¿œã˜ã¦ãƒ‡ãƒã‚¤ã‚¹æƒ…å ±ã‚’æ ¼ç´ã™ã‚‹é…åˆ—ã‚’ç”¨æ„
 		std::vector<VkPhysicalDevice> physicalDevices;
 		physicalDevices.resize(count);
 
-		// ƒfƒoƒCƒXî•ñ‚Ìæ“¾
+		// ãƒ‡ãƒã‚¤ã‚¹æƒ…å ±ã®å–å¾—
 		result = vkEnumeratePhysicalDevices(_vkInstance, &count, physicalDevices.data());
 		if (result != VK_SUCCESS)
 		{
@@ -125,10 +125,10 @@ bool DeviceManager::initialize()
 			return false;
 		}
 
-		// Gpuî•ñŠi”[—p”z—ñ‚ğƒŠƒTƒCƒY
+		// Gpuæƒ…å ±æ ¼ç´ç”¨é…åˆ—ã‚’ãƒªã‚µã‚¤ã‚º
 		_Gpus.resize(count);
 
-		// ƒJƒEƒ“ƒg•ªƒfƒoƒCƒX‚Ìƒƒ‚ƒŠî•ñ‚ğæ“¾
+		// ã‚«ã‚¦ãƒ³ãƒˆåˆ†ãƒ‡ãƒã‚¤ã‚¹ã®ãƒ¡ãƒ¢ãƒªæƒ…å ±ã‚’å–å¾—
 		for (auto i = 0u; i<count; ++i)
 		{
 			_Gpus[i]._device = physicalDevices[i];
@@ -142,7 +142,7 @@ bool DeviceManager::initialize()
 }
 
 //---------------------------------------------------------------------------
-// ‰ğ•ú
+// è§£æ”¾
 //---------------------------------------------------------------------------
 void DeviceManager::cleanup()
 {

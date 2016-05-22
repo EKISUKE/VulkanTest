@@ -1,31 +1,31 @@
-//---------------------------------------------------------------------------
+ï»¿//---------------------------------------------------------------------------
 //!
 // @file	DeviceManager.h
-// @brief	ƒfƒoƒCƒXŠÇ—
+// @brief	ãƒ‡ãƒã‚¤ã‚¹ç®¡ç†
 // @author	Yuki.Ishigaki
 //!
 //---------------------------------------------------------------------------
 #pragma once
 
 //---------------------------------------------------------------------------
-//! @class ƒfƒoƒCƒXŠÇ—
+//! @class ãƒ‡ãƒã‚¤ã‚¹ç®¡ç†
 //---------------------------------------------------------------------------
 class DeviceManager
 {
 public:
-	//! ‰Šú‰»
+	//! åˆæœŸåŒ–
 	bool initialize();
 	
-	//! ‰ğ•ú
+	//! è§£æ”¾
 	void cleanup();
 
-	//! ƒCƒ“ƒXƒ^ƒ“ƒXæ“¾
+	//! ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å–å¾—
 	static DeviceManager* getInstance() {
 		static DeviceManager _myIsntance;
 		return &_myIsntance;
 	}
 
-	//! •¨—ƒfƒoƒCƒX‚Ìæ“¾
+	//! ç‰©ç†ãƒ‡ãƒã‚¤ã‚¹ã®å–å¾—
 	VkPhysicalDevice* getPhysicalDevice(int gpuIndex) {
 		if (!_Gpus.empty()) {
 			return &(_Gpus[gpuIndex]._device);
@@ -33,7 +33,7 @@ public:
 		return nullptr;
 	}
 
-	//! •¨—ƒfƒoƒCƒX‚ÌƒvƒƒpƒeƒBæ“¾
+	//! ç‰©ç†ãƒ‡ãƒã‚¤ã‚¹ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£å–å¾—
 	VkPhysicalDeviceMemoryProperties* getPhysicalDeviceMemProps(int gpuIndex) {
 		if (!_Gpus.empty()) {
 			return &(_Gpus[gpuIndex]._memoryProps);
@@ -41,26 +41,26 @@ public:
 		return nullptr;
 	}
 
-	//! ƒfƒoƒCƒX‚Ìæ“¾
+	//! ãƒ‡ãƒã‚¤ã‚¹ã®å–å¾—
 	VkDevice& getVkDevice() { return _vkDevice; }
 
-	//! VulkanƒCƒ“ƒXƒ^ƒ“ƒX‚Ìæ“¾
+	//! Vulkanã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å–å¾—
 	VkInstance& getVkInstance() { return _vkInstance; }
 
 
 private:
-	//---- ŠO•”‚Å‚ÌƒCƒ“ƒXƒ^ƒ“ƒXì¬‚È‚Ç‚ğ‹Ö~‚µAƒVƒ“ƒOƒ‹ƒgƒ“‰»
-	//! ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//---- å¤–éƒ¨ã§ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ä½œæˆãªã©ã‚’ç¦æ­¢ã—ã€ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³åŒ–
+	//! ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	DeviceManager() {}
 
-	//! ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//! ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	DeviceManager(DeviceManager& deviceManager) {}
-	//! ƒfƒXƒgƒ‰ƒNƒ^
+	//! ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	virtual ~DeviceManager() {}
 
 
 private:
-	// ƒƒ“ƒo•Ï”
+	// ãƒ¡ãƒ³ãƒå¤‰æ•°
 	VkInstance						_vkInstance;
 	VkDevice						_vkDevice;
 	std::vector<Gpu>				_Gpus;
@@ -68,7 +68,7 @@ private:
 };
 
 //---------------------------------------------------------------------------
-//! ƒAƒNƒZƒXƒCƒ“ƒ^[ƒtƒFƒCƒX
+//! ã‚¢ã‚¯ã‚»ã‚¹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 //---------------------------------------------------------------------------
 FORCEINLINE
 DeviceManager* IDeviceManager()
